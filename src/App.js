@@ -22,6 +22,7 @@ function App() {
 
 	const styles = {
 		container: css`
+			min-height: 100vh;
 			background: ${theme === 'dark'
 				? variables.dark.secondary_1
 				: variables.light.secondary_1};
