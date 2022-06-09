@@ -6,6 +6,7 @@ import ThemeSwitchContext from './context/ThemeSwitchContext';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { variables } from './variables/variables';
+import Navbar from './components/Navbar';
 
 function App() {
 	const [themeSwitch, setThemeSwitch] = useState('automatic');
@@ -44,6 +45,7 @@ function App() {
 		<div className="App" css={styles.container}>
 			<ThemeSwitchContext.Provider value={{ themeSwitch, setThemeSwitch }}>
 				<ThemeContext.Provider value={{ theme, setTheme }}>
+					<Navbar />
 					<div>
 						<Outlet />
 					</div>
