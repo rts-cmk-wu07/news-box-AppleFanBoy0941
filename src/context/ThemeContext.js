@@ -2,14 +2,14 @@ import { createContext } from 'react';
 
 const darkTheme = window.matchMedia('(prefers-color-scheme: dark)');
 
-const systemIsDark = true;
+let theme = 'dark';
 darkTheme.addEventListener('change', e => {
 	if (e.matches) {
-		systemIsDark = true;
+		theme = 'dark';
 	} else {
-		systemIsDark = false;
+		theme = 'light';
 	}
 });
 
-const ThemeContext = createContext(systemIsDark);
+const ThemeContext = createContext(theme);
 export default ThemeContext;
