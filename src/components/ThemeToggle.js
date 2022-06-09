@@ -41,7 +41,7 @@ const ThemeToggle = () => {
 			position: absolute;
 			height: 14px;
 			width: 14px;
-			border: 3px solid ${v.text_1};
+			border: 3px solid ${v.text_dark};
 			border-radius: 50%;
 			box-sizing: border-box;
 			top: 50%;
@@ -58,7 +58,7 @@ const ThemeToggle = () => {
 			position: absolute;
 			width: 5px;
 			height: 3px;
-			background: ${v.text_1};
+			background: ${v.text_dark};
 			border-radius: 100px;
 			top: 50%;
 			left: 50%;
@@ -74,7 +74,7 @@ const ThemeToggle = () => {
 			position: absolute;
 			stroke-width: 3px;
 			transition: 0.5s;
-			color: ${v.text_1};
+			color: ${v.text_light};
 
 			${theme === 'dark' &&
 			`opacity: 1;
@@ -89,7 +89,6 @@ const ThemeToggle = () => {
 			setTheme('dark');
 		}
 	};
-	const dark = '';
 	const lines = [1, 2, 3, 4, 5, 6, 7, 8];
 	return (
 		<button css={styles.icon} onClick={handleToggle}>
