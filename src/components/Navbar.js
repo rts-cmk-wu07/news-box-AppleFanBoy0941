@@ -30,7 +30,9 @@ const Navbar = () => {
 			justify-content: space-between;
 			align-items: center;
 			padding: 1.5rem 2rem;
-			border-bottom: 1px solid ${v.secondary_2};
+			border-bottom: 2px solid ${v.secondary_2};
+			position: sticky;
+			top: 0;
 		`,
 		settings: css`
 			border: none;
