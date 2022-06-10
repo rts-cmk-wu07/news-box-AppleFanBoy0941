@@ -7,11 +7,17 @@ import ThemeContext from '../../context/ThemeContext';
 const Heading = ({ type, color, text }) => {
 	const context = useContext(ThemeContext);
 	const theme = context.theme;
+	let v;
+	if (theme === 'dark') {
+		v = variables.dark;
+	} else {
+		v = variables.light;
+	}
 	const styles = {
 		h1: css`
 			font-size: 30pt;
 			font-weight: bold;
-			color: ${color || theme.text_1};
+			color: ${color || v.text_1};
 		`,
 	};
 	return (

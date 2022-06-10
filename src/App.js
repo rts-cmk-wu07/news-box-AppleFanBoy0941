@@ -7,6 +7,7 @@ import ThemeSwitchContext from './context/ThemeSwitchContext';
 import { css } from '@emotion/react';
 import { variables } from './variables/variables';
 import Navbar from './components/Navbar';
+import MenuContext from './context/MenuContext';
 
 function App() {
 	const [themeSwitch, setThemeSwitch] = useState('automatic');
@@ -41,14 +42,18 @@ function App() {
 		}
 	});
 
+	const [menu, setMenu] = useState(false);
+
 	return (
 		<div className="App" css={styles.container}>
 			<ThemeSwitchContext.Provider value={{ themeSwitch, setThemeSwitch }}>
 				<ThemeContext.Provider value={{ theme, setTheme }}>
-					<Navbar />
-					<div>
-						<Outlet />
-					</div>
+					<MenuContext.Provider value={{ menu, setMenu }}>
+						<Navbar />
+						<div>
+							<Outlet />
+						</div>
+					</MenuContext.Provider>
 				</ThemeContext.Provider>
 			</ThemeSwitchContext.Provider>
 		</div>
