@@ -26,8 +26,8 @@ function App() {
 		container: css`
 			min-height: 100vh;
 			background: ${theme === 'dark'
-				? variables.dark.secondary_1
-				: variables.light.secondary_1};
+				? variables.dark.text_3
+				: variables.light.text_3};
 			color: ${theme === 'dark'
 				? variables.dark.text_1
 				: variables.light.text_1};
@@ -36,9 +36,9 @@ function App() {
 
 	darkTheme.addEventListener('change', e => {
 		if (e.matches) {
-			themeSwitch !== 'automatc' && setTheme('dark');
+			themeSwitch === 'automatic' ? setTheme('dark') : setTheme(themeSwitch);
 		} else {
-			themeSwitch !== 'automatc' && setTheme('light');
+			themeSwitch === 'automatic' ? setTheme('light') : setTheme(themeSwitch);
 		}
 	});
 

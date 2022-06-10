@@ -4,8 +4,11 @@ import FeatherIcon from 'feather-icons-react';
 import { useContext } from 'react';
 import ThemeContext from '../context/ThemeContext';
 import { variables } from '../variables/variables';
+import ThemeSwitchContext from '../context/ThemeSwitchContext';
 
 const ThemeToggle = () => {
+	const themeSwitchContext = useContext(ThemeSwitchContext);
+	const { themeSwitch, setThemeSwitch } = themeSwitchContext;
 	const context = useContext(ThemeContext);
 	const theme = context.theme;
 	const setTheme = context.setTheme;
@@ -16,6 +19,22 @@ const ThemeToggle = () => {
 		v = variables.light;
 	}
 	const styles = {
+		button: css`
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 0.5rem;
+			padding: 0.5rem 1.5rem;
+			border-radius: 100px;
+			width: 14rem;
+			background: transparent;
+			border: 2px solid ${v.secondary_2};
+			color: ${v.text_1};
+			font-family: inherit;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			font-size: 14pt;
+		`,
 		icon: css`
 			cursor: pointer;
 			position: relative;
@@ -83,33 +102,48 @@ const ThemeToggle = () => {
 	};
 
 	const handleToggle = () => {
-		if (theme === 'dark') {
+		if (themeSwitch === 'automatic') {
+			setThemeSwitch('light');
 			setTheme('light');
-		} else {
+		} else if (themeSwitch === 'light') {
+			setThemeSwitch('dark');
 			setTheme('dark');
+		} else {
+			setThemeSwitch('automatic');
+			const darkTheme = window.matchMedia(
+				'(prefers-color-scheme: dark)'
+			).matches;
+			if (darkTheme) {
+				setTheme('dark');
+			} else {
+				setTheme('light');
+			}
 		}
 	};
 	const lines = [1, 2, 3, 4, 5, 6, 7, 8];
 	return (
-		<button css={styles.icon} onClick={handleToggle}>
-			<div css={styles.light}>
-				<div css={styles.circle}></div>
-				{lines.map(line => {
-					const lineAnimation = css`
-						transform: translate(-50%, -50%) rotate(calc(360deg / 8 * ${line}))
-							translateX(12px);
+		<button onClick={handleToggle} css={styles.button}>
+			{themeSwitch}
+			<div css={styles.icon}>
+				<div css={styles.light}>
+					<div css={styles.circle}></div>
+					{lines.map(line => {
+						const lineAnimation = css`
+							transform: translate(-50%, -50%)
+								rotate(calc(360deg / 8 * ${line})) translateX(12px);
 
-						transition: 0.4s calc(0.2s / 8 * ${line});
+							transition: 0.4s calc(0.2s / 8 * ${line});
 
-						${theme === 'dark' &&
-						`
+							${theme === 'dark' &&
+							`
 						transform: translate(-50%, -50%) rotate(calc(360deg / 8 * ${line}));
 						`}
-					`;
-					return <div key={line} css={[styles.line, lineAnimation]}></div>;
-				})}
+						`;
+						return <div key={line} css={[styles.line, lineAnimation]}></div>;
+					})}
+				</div>
+				<FeatherIcon icon="moon" css={styles.dark} />
 			</div>
-			<FeatherIcon icon="moon" css={styles.dark} />
 		</button>
 	);
 };

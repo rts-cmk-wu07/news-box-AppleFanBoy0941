@@ -19,13 +19,28 @@ const Heading = ({ type, color, text }) => {
 			font-weight: bold;
 			color: ${color || v.text_1};
 		`,
+		h2: css`
+			font-size: 24pt;
+			font-weight: bold;
+			color: ${color || v.text_1};
+		`,
+		h3: css`
+			font-size: 18pt;
+			font-weight: bold;
+			color: ${color || v.text_1};
+		`,
+		h4: css`
+			font-size: 18pt;
+			font-weight: 400;
+			color: ${color || v.text_1};
+		`,
 	};
 	return (
 		<>
 			{type === 'primary' && <h1 css={styles.h1}>{text}</h1>}
-			{type === 'secondary' && <h2>{text}</h2>}
-			{type === 'section' && <h3>{text}</h3>}
-			{type === 'sub' && <h4>{text}</h4>}
+			{type === 'secondary' && <h2 css={styles.h2}>{text}</h2>}
+			{type === 'section' && <h3 css={styles.h3}>{text}</h3>}
+			{type === 'sub' && <h4 css={styles.h4}>{text}</h4>}
 		</>
 	);
 };

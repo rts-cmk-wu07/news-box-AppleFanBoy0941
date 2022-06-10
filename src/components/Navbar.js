@@ -7,6 +7,7 @@ import ThemeContext from '../context/ThemeContext';
 import { useContext } from 'react';
 import { variables } from '../variables/variables';
 import MenuContext from '../context/MenuContext';
+import Menu from '../templates/Menu';
 
 const Navbar = () => {
 	const location = useLocation();
@@ -27,12 +28,20 @@ const Navbar = () => {
 	const styles = {
 		nav: css`
 			display: flex;
+			flex-direction: column;
 			justify-content: space-between;
 			align-items: center;
-			padding: 1.5rem 2rem;
-			border-bottom: 2px solid ${v.secondary_2};
+			padding: 1.5rem 2rem 0 2rem;
+			border-bottom: 2px solid ${v.secondary_1};
 			position: sticky;
 			top: 0;
+			background: ${v.text_3};
+		`,
+		div: css`
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
 		`,
 		settings: css`
 			border: none;
@@ -94,32 +103,44 @@ const Navbar = () => {
 				};
 			`}
 		`,
+		link: css`
+			transition: 0.3s;
+			${menuIsOpen &&
+			`
+				opacity: 0;
+				transform: scale(.8);
+				pointer-events: none;
+			`}
+		`,
 	};
 	return (
 		<nav css={styles.nav}>
-			{location.pathname === '/home' ? (
-				<Link to="archive">
-					<FeatherIcon icon="inbox" />
-				</Link>
-			) : (
-				<Link to="home">
-					<FeatherIcon icon="chevron-left" />
-				</Link>
-			)}
-			<Heading
-				type="section"
-				text={
-					menuIsOpen
-						? 'Settings'
-						: location.pathname === '/archive'
-						? 'Archive'
-						: 'News Box'
-				}
-			/>
-			<button css={styles.settings} onClick={() => setMenu(!menuIsOpen)}>
-				<FeatherIcon icon="settings" css={styles.settingsIcon} />
-				<div css={styles.cross}></div>
-			</button>
+			<div css={styles.div}>
+				{location.pathname === '/home' ? (
+					<Link to="archive" css={styles.link}>
+						<FeatherIcon icon="inbox" />
+					</Link>
+				) : (
+					<Link to="home" css={styles.link}>
+						<FeatherIcon icon="chevron-left" />
+					</Link>
+				)}
+				<Heading
+					type="section"
+					text={
+						menuIsOpen
+							? 'Settings'
+							: location.pathname === '/archive'
+							? 'Archive'
+							: 'News Box'
+					}
+				/>
+				<button css={styles.settings} onClick={() => setMenu(!menuIsOpen)}>
+					<FeatherIcon icon="settings" css={styles.settingsIcon} />
+					<div css={styles.cross}></div>
+				</button>
+			</div>
+			<Menu />
 		</nav>
 	);
 };
