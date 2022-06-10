@@ -1,5 +1,4 @@
 import Heading from '../components/subcomponents/Heading';
-import ThemeToggle from '../components/ThemeToggle';
 
 const Home = () => {
 	return (
