@@ -9,7 +9,11 @@
 		sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	transition: 0.3s;
+	transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+a {
+	color: inherit;
 }
 
 code {
