@@ -1,12 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import ThemeContext from '../context/ThemeContext';
 import { variables } from '../variables/variables';
 import Body from './subcomponents/Body';
 import Heading from './subcomponents/Heading';
 
 const SectionArticle = ({ data }) => {
+	const location = useLocation();
 	const context = useContext(ThemeContext);
 	const theme = context.theme;
 	let v;
@@ -50,11 +52,17 @@ const SectionArticle = ({ data }) => {
 		return <div css={styles.imgDiv}></div>;
 	};
 
+	const clickHandler = () => {
+		window.location.href = data.url;
+	};
+
 	return (
-		<article css={styles.article}>
+		<article css={styles.article} onClick={clickHandler}>
 			{findImage(data.media[0])}
 			<div css={styles.div}>
-				<Heading type="card" text={data.title} />
+				<a href={data.url}>
+					<Heading type="card" text={data.title} />
+				</a>
 				<Body type="card" text={data.abstract} />
 			</div>
 		</article>
