@@ -1,9 +1,7 @@
 import Section from './Section';
 
 const Sections = ({ data }) => {
-	const { results } = data;
-
-	const sorted = results.sort((a, b) => {
+	const sorted = data.sort((a, b) => {
 		if (a.section < b.section) {
 			return -1;
 		}
@@ -18,7 +16,7 @@ const Sections = ({ data }) => {
 	return (
 		<div>
 			{titles.map(title => (
-				<Section key={title} title={title} data={results} />
+				<Section key={title} title={title} data={data} />
 			))}
 		</div>
 	);

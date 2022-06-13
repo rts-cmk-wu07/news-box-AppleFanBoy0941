@@ -6,8 +6,9 @@ const key = 'jWCYReQL9liE93kNAYf6W9u3lufxbbF1';
 
 const Home = () => {
 	const { data, isPending, error } = useFetch(`${url}${key}`);
+	const results = data && data.results;
 
-	return <main>{data && <Sections data={data} />}</main>;
+	return <main>{data && <Sections data={results} />}</main>;
 };
 
 export default Home;

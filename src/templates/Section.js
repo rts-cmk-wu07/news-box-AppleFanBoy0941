@@ -14,15 +14,20 @@ import {
 } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
 import FeatherIcon from 'feather-icons-react';
+import { useLocation } from 'react-router-dom';
 
 const Section = ({ title, data }) => {
 	const [isOpen, setIsOpen] = useState(false);
+	const location = useLocation();
 
 	const filterData = articles => {
 		return articles.filter(article => article.section === title);
 	};
 
-	const numberOfArticles = filterData(data).length;
+	// const numberOfArticles = filterData(data).length;
+	const [numberOfArticles, setNumberOfArticles] = useState(
+		filterData(data).length
+	);
 	const articleHeight = 6;
 
 	const context = useContext(ThemeContext);
@@ -58,9 +63,57 @@ const Section = ({ title, data }) => {
 		`,
 	};
 
+	const swipeHandler = article => {
+		const ls = localStorage.getItem('archive');
+		const archive = JSON.parse(ls);
+
+		if (location.pathname === '/archive') {
+			const newArchive = archive.filter(
+				item => item.title !== article.title && item.section !== article.section
+			);
+			localStorage.setItem('archive', JSON.stringify(newArchive));
+			setNumberOfArticles(numberOfArticles - 1);
+		} else {
+			let isDuplicate;
+			if (archive) {
+				isDuplicate = archive.some(
+					item =>
+						item.title === article.title && item.section === article.section
+				);
+			} else {
+				isDuplicate = false;
+			}
+
+			if (!isDuplicate) {
+				const newArchive = {
+					title: article.title,
+					media: article.media,
+					abstract: article.abstract,
+					section: article.section,
+					url: article.url,
+				};
+				console.log(newArchive);
+				let updatedArchive = [];
+				if (archive) {
+					updatedArchive = [...archive, newArchive];
+				} else {
+					updatedArchive = [newArchive];
+				}
+				localStorage.setItem('archive', JSON.stringify(updatedArchive));
+			} else {
+				console.log('duplicate');
+			}
+		}
+	};
+
 	return (
 		<section css={styles.section}>
-			<SectionHeader title={title} isOpen={isOpen} setIsOpen={setIsOpen} />
+			<SectionHeader
+				title={title}
+				isOpen={isOpen}
+				setIsOpen={setIsOpen}
+				numberOfArticles={numberOfArticles}
+			/>
 			<SwipeableList css={styles.list}>
 				{data &&
 					filterData(data).map((article, index) => (
@@ -69,7 +122,8 @@ const Section = ({ title, data }) => {
 							trailingActions={
 								<TrailingActions>
 									<SwipeAction
-										onClick={() => console.log('This is now archived')}
+										onClick={() => swipeHandler(article)}
+										destructive={location.pathname === '/archive'}
 									>
 										<div css={styles.action}>
 											<FeatherIcon icon="inbox" />
