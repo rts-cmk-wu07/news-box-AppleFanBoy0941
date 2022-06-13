@@ -35,7 +35,14 @@ const Navbar = () => {
 			border-bottom: 2px solid ${v.secondary_1};
 			position: sticky;
 			top: 0;
-			background: ${v.text_3};
+			background: ${v.text_3}a0;
+			z-index: 1000;
+			backdrop-filter: blur(1rem);
+
+			${menuIsOpen &&
+			`
+				background: ${v.text_3};
+			`}
 		`,
 		div: css`
 			display: flex;

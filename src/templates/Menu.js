@@ -30,7 +30,7 @@ const Menu = () => {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			gap: 3rem;
+			gap: 1rem;
 
 			& > * {
 				opacity: 0;
@@ -42,6 +42,7 @@ const Menu = () => {
 				padding: 2rem 0;
 				height: calc(100vh - 28px - 3rem);
 				background: ${v.secondary_1};
+				gap: 3rem;
 
 				& > * {
 					opacity: 1;

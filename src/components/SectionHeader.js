@@ -67,7 +67,7 @@ const SectionHeader = ({ title, isOpen, setIsOpen }) => {
 			<div css={styles.icon}>
 				<FeatherIcon icon="box" />
 			</div>
-			<Heading type="card" text={title} />
+			<Heading type="sub" text={title} />
 			<button css={styles.button}>
 				<FeatherIcon icon="chevron-right" />
 			</button>

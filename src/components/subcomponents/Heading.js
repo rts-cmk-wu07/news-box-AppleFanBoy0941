@@ -30,16 +30,21 @@ const Heading = ({ type, color, text }) => {
 			color: ${color || v.text_1};
 		`,
 		h4: css`
-			font-size: 18pt;
-			font-weight: 400;
-			color: ${color || v.text_1};
-		`,
-		h5: css`
 			font-size: 13pt;
-			font-weight: 700;
+			font-weight: bold;
 			color: ${color || v.text_1};
 			text-transform: uppercase;
 			letter-spacing: 1px;
+		`,
+		h5: css`
+			font-size: 12pt;
+			font-weight: 700;
+			color: ${color || v.text_1};
+			height: 20px;
+			overflow: hidden;
+			width: 100%;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		`,
 	};
 	return (

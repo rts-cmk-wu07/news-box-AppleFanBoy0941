@@ -18,7 +18,7 @@ const Sections = ({ data }) => {
 	return (
 		<div>
 			{titles.map(title => (
-				<Section key={title} title={title} />
+				<Section key={title} title={title} data={results} />
 			))}
 		</div>
 	);
