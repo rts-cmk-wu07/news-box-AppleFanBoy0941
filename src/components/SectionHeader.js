@@ -63,8 +63,10 @@ const SectionHeader = ({ title, isOpen, setIsOpen, numberOfArticles }) => {
 		number: css`
 			display: flex;
 			margin-left: auto;
-			opacity: 0.5;
+			/* opacity: 0.5; */
 			font-size: 0.8rem;
+			color: ${v.primary_1};
+			font-weight: 600;
 		`,
 	};
 	return (
