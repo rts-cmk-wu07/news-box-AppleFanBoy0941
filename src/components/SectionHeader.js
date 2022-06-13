@@ -48,7 +48,7 @@ const SectionHeader = ({ title, isOpen, setIsOpen }) => {
 			border: none;
 			margin-left: auto;
 			color: inherit;
-			transition: 0.5s;
+			transition: 0.25s;
 
 			${isOpen &&
 			`
