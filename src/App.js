@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router';
 import './App.css';
 import ThemeContext from './context/ThemeContext';
-import { useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import ThemeSwitchContext from './context/ThemeSwitchContext';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
@@ -9,14 +9,7 @@ import { variables } from './variables/variables';
 import Navbar from './components/Navbar';
 import MenuContext from './context/MenuContext';
 
-import useFetch from './hooks/useFetch';
-const url = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=';
-const key = 'jWCYReQL9liE93kNAYf6W9u3lufxbbF1';
-
 function App() {
-	const { data, isPending, error } = useFetch(url + key);
-	console.log(data);
-
 	const [themeSwitch, setThemeSwitch] = useState('automatic');
 	const darkTheme = window.matchMedia('(prefers-color-scheme: dark)');
 	let systemIsDark = darkTheme.matches;

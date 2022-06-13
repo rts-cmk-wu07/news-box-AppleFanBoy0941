@@ -34,6 +34,7 @@ const ThemeToggle = () => {
 			text-transform: uppercase;
 			letter-spacing: 1px;
 			font-size: 14pt;
+			cursor: pointer;
 		`,
 		icon: css`
 			cursor: pointer;
@@ -54,7 +55,8 @@ const ThemeToggle = () => {
 			justify-content: center;
 			align-items: center;
 			transition: 0.5s;
-			${theme === 'dark' && `transform: translateY(-1rem) rotate(180deg);`}
+			${themeSwitch === 'dark' &&
+			`transform: translateY(-1rem) rotate(180deg);`}
 		`,
 		circle: css`
 			position: absolute;
@@ -67,7 +69,13 @@ const ThemeToggle = () => {
 			left: 50%;
 			transform: translate(-50%, -50%);
 			transition: 0.5s;
-			${theme === 'dark' &&
+			${themeSwitch === 'dark' &&
+			`
+				transform: translate(-50%, -50%) scale(.5);
+				opacity: 0;
+			`}
+
+			${themeSwitch === 'automatic' &&
 			`
 				transform: translate(-50%, -50%) scale(.5);
 				opacity: 0;
@@ -83,9 +91,15 @@ const ThemeToggle = () => {
 			left: 50%;
 			box-sizing: border-box;
 
-			${theme === 'dark' &&
+			${themeSwitch === 'dark' &&
 			`width: 3px;
 			opacity: 0;`}
+
+			${themeSwitch === 'automatic' &&
+			`
+				opacity: 1;
+				background: ${v.text_1};
+			`}
 		`,
 		dark: css`
 			transform: translateY(1rem) rotate(180deg) scale(0.3);
@@ -95,9 +109,17 @@ const ThemeToggle = () => {
 			transition: 0.5s;
 			color: ${v.text_light};
 
-			${theme === 'dark' &&
+			${themeSwitch === 'dark' &&
 			`opacity: 1;
 			transform: rotate(0);`}
+
+			${themeSwitch === 'automatic' &&
+			`
+				stroke-width: 4px;
+				opacity: 1;
+				transform: scale(.6);
+				color: ${v.text_1};
+			`}
 		`,
 	};
 
@@ -134,10 +156,15 @@ const ThemeToggle = () => {
 
 							transition: 0.4s calc(0.2s / 8 * ${line});
 
-							${theme === 'dark' &&
+							${themeSwitch === 'dark' &&
 							`
-						transform: translate(-50%, -50%) rotate(calc(360deg / 8 * ${line}));
-						`}
+								transform: translate(-50%, -50%) rotate(calc(360deg / 8 * ${line}));
+							`}
+
+							${themeSwitch === 'automatic' &&
+							`
+								transform: translate(-50%, -50%) rotate(calc(360deg / 8 * ${line})) translateX(12px);
+							`}
 						`;
 						return <div key={line} css={[styles.line, lineAnimation]}></div>;
 					})}
