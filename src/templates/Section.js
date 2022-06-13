@@ -6,7 +6,6 @@ import { variables } from '../variables/variables';
 import ThemeContext from '../context/ThemeContext';
 import SectionArticle from '../components/SectionArticle';
 import {
-	LeadingActions,
 	SwipeableList,
 	SwipeableListItem,
 	SwipeAction,
