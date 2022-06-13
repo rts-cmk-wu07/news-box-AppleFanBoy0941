@@ -6,7 +6,7 @@ import ThemeContext from '../context/ThemeContext';
 import { useContext } from 'react';
 import { variables } from '../variables/variables';
 
-const SectionHeader = ({ title, isOpen, setIsOpen }) => {
+const SectionHeader = ({ title, isOpen, setIsOpen, numberOfArticles }) => {
 	const context = useContext(ThemeContext);
 	const theme = context.theme;
 	let v;
@@ -31,7 +31,7 @@ const SectionHeader = ({ title, isOpen, setIsOpen }) => {
 			align-items: center;
 			justify-content: center;
 			border-radius: 100px;
-			box-shadow: 0 0.75rem 2rem #00000030;
+			box-shadow: 0 0.5rem 1.5rem #00000020;
 			color: ${v.primary_2};
 
 			background: ${v.text_light}20;
@@ -46,7 +46,6 @@ const SectionHeader = ({ title, isOpen, setIsOpen }) => {
 			justify-content: space-between;
 			background: transparent;
 			border: none;
-			margin-left: auto;
 			color: inherit;
 			transition: 0.25s;
 
@@ -61,13 +60,20 @@ const SectionHeader = ({ title, isOpen, setIsOpen }) => {
 				color: inherit;
 			}
 		`,
+		number: css`
+			display: flex;
+			margin-left: auto;
+			opacity: 0.5;
+			font-size: 0.8rem;
+		`,
 	};
 	return (
 		<header css={styles.header} onClick={() => setIsOpen(!isOpen)}>
 			<div css={styles.icon}>
 				<FeatherIcon icon="box" />
 			</div>
-			<Heading type="card" text={title} />
+			<Heading type="sub" text={title} />
+			<span css={styles.number}>{numberOfArticles}</span>
 			<button css={styles.button}>
 				<FeatherIcon icon="chevron-right" />
 			</button>
