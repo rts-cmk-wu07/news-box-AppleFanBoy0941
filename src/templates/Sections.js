@@ -1,3 +1,5 @@
+import Section from './Section';
+
 const Sections = ({ data }) => {
 	const { results } = data;
 
@@ -11,12 +13,12 @@ const Sections = ({ data }) => {
 		return 0;
 	});
 
-	const sections = [...new Set(sorted.map(item => item.section))];
+	const titles = [...new Set(sorted.map(item => item.section))];
 
 	return (
 		<div>
-			{sections.map(section => (
-				<section key={section}>{section}</section>
+			{titles.map(title => (
+				<Section key={title} title={title} />
 			))}
 		</div>
 	);

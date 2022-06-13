@@ -25,7 +25,7 @@ const Heading = ({ type, color, text }) => {
 			color: ${color || v.text_1};
 		`,
 		h3: css`
-			font-size: 18pt;
+			font-size: 15pt;
 			font-weight: bold;
 			color: ${color || v.text_1};
 		`,
@@ -34,6 +34,13 @@ const Heading = ({ type, color, text }) => {
 			font-weight: 400;
 			color: ${color || v.text_1};
 		`,
+		h5: css`
+			font-size: 13pt;
+			font-weight: 700;
+			color: ${color || v.text_1};
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		`,
 	};
 	return (
 		<>
@@ -41,6 +48,7 @@ const Heading = ({ type, color, text }) => {
 			{type === 'secondary' && <h2 css={styles.h2}>{text}</h2>}
 			{type === 'section' && <h3 css={styles.h3}>{text}</h3>}
 			{type === 'sub' && <h4 css={styles.h4}>{text}</h4>}
+			{type === 'card' && <h5 css={styles.h5}>{text}</h5>}
 		</>
 	);
 };
