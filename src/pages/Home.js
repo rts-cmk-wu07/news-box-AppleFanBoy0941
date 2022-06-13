@@ -1,5 +1,6 @@
 import Sections from '../templates/Sections';
 import useFetch from '../hooks/useFetch';
+import Loading from '../components/Loading';
 
 const url = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=';
 const key = 'jWCYReQL9liE93kNAYf6W9u3lufxbbF1';
@@ -10,7 +11,7 @@ const Home = () => {
 
 	return (
 		<main>
-			{isPending && <p>Loading...</p>}
+			{isPending && <Loading />}
 			{data && <Sections data={results} />}
 		</main>
 	);
