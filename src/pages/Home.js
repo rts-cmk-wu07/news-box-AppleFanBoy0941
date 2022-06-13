@@ -8,7 +8,12 @@ const Home = () => {
 	const { data, isPending, error } = useFetch(`${url}${key}`);
 	const results = data && data.results;
 
-	return <main>{data && <Sections data={results} />}</main>;
+	return (
+		<main>
+			{isPending && <p>Loading...</p>}
+			{data && <Sections data={results} />}
+		</main>
+	);
 };
 
 export default Home;
