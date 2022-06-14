@@ -69,10 +69,44 @@ const SectionHeader = ({ title, isOpen, setIsOpen, numberOfArticles }) => {
 			font-weight: 600;
 		`,
 	};
+
+	const categoryIcons = {
+		world: 'globe',
+		us: 'flag',
+		newyork: 'map-pin',
+		politics: 'bar-chart-2',
+		business: 'package',
+		opinion: 'message-square',
+		technology: 'monitor',
+		science: 'hexagon',
+		health: 'heart',
+		style: 'feather',
+		travel: 'compass',
+		sports: 'award',
+		arts: 'edit',
+		books: 'book',
+		food: 'shopping-cart',
+		magazine: 'book-open',
+		realestate: 'home',
+		video: 'video',
+		tmagazine: 'book-open',
+		gameplay: 'crosshair',
+		theater: 'smile',
+		well: 'sun',
+	};
+
+	const matchSectionWithIcons = section => {
+		const sectionMinified = section
+			.toLowerCase()
+			.replace(/\s/g, '')
+			.replace(/\./g, '');
+		return categoryIcons[sectionMinified];
+	};
+
 	return (
 		<header css={styles.header} onClick={() => setIsOpen(!isOpen)}>
 			<div css={styles.icon}>
-				<FeatherIcon icon="box" />
+				<FeatherIcon icon={matchSectionWithIcons(title)} />
 			</div>
 			<Heading type="sub" text={title} />
 			<span css={styles.number}>{numberOfArticles}</span>
