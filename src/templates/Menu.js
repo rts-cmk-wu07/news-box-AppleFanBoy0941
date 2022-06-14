@@ -6,6 +6,7 @@ import MenuContext from '../context/MenuContext';
 import ThemeContext from '../context/ThemeContext';
 import { variables } from '../variables/variables';
 import ThemeToggle from '../components/ThemeToggle';
+import SettingsList from '../components/SettingsList';
 
 const Menu = () => {
 	const menu = useContext(MenuContext);
@@ -21,10 +22,10 @@ const Menu = () => {
 	}
 	const styles = {
 		menu: css`
-			padding: 0;
+			padding: 0 2rem;
 			height: 0;
 			transition: 0.7s;
-			overflow: hidden;
+			overflow-y: scroll;
 			width: 100vw;
 			margin-top: 1.5rem;
 			display: flex;
@@ -39,7 +40,7 @@ const Menu = () => {
 
 			${menuIsOpen &&
 			`
-				padding: 2rem 0;
+				padding: 2rem;
 				height: calc(100vh - 28px - 3rem);
 				background: ${v.secondary_1};
 				gap: 3rem;
@@ -49,13 +50,17 @@ const Menu = () => {
 				}
 			`}
 		`,
+		heading: css`
+			text-align: center;
+		`,
 	};
 	return (
 		<div css={styles.menu}>
-			<div>
+			<div css={styles.heading}>
 				<Heading type="primary" text="Manage" color={v.primary_1} />
 				<Heading type="sub" text="Categories" color={v.primary_3} />
 			</div>
+			<SettingsList />
 			<ThemeToggle />
 		</div>
 	);

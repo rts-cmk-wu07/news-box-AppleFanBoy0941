@@ -8,6 +8,7 @@ import { css } from '@emotion/react';
 import { variables } from './variables/variables';
 import Navbar from './components/Navbar';
 import MenuContext from './context/MenuContext';
+import ActiveSectionContext from './context/ActiveSectionContext';
 
 function App() {
 	const [themeSwitch, setThemeSwitch] = useState('automatic');
@@ -44,15 +45,51 @@ function App() {
 
 	const [menu, setMenu] = useState(false);
 
+	const sections = [
+		'World',
+		'U.S.',
+		'New York',
+		'Politics',
+		'Business',
+		'Opinion',
+		'Technology',
+		'Science',
+		'Health',
+		'Style',
+		'Travel',
+		'Sports',
+		'Arts',
+		'Books',
+		'Food',
+		'Magazine',
+		'T Magazine',
+		'Real Estate',
+		'Video',
+		'Gameplay',
+		'Theater',
+		'Well',
+	];
+
+	const sectionList = sections.sort();
+
+	const [activeSections, setActiveSections] = useState(sectionList);
+
 	return (
 		<div className="App" css={styles.container}>
 			<ThemeSwitchContext.Provider value={{ themeSwitch, setThemeSwitch }}>
 				<ThemeContext.Provider value={{ theme, setTheme }}>
 					<MenuContext.Provider value={{ menu, setMenu }}>
-						<Navbar />
-						<div>
-							<Outlet />
-						</div>
+						<ActiveSectionContext.Provider
+							value={{
+								sections: { sectionList, activeSections },
+								setActiveSections,
+							}}
+						>
+							<Navbar />
+							<div>
+								<Outlet />
+							</div>
+						</ActiveSectionContext.Provider>
 					</MenuContext.Provider>
 				</ThemeContext.Provider>
 			</ThemeSwitchContext.Provider>
