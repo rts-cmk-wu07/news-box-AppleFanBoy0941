@@ -79,7 +79,7 @@ const Section = ({ title, data }) => {
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			color: ${v.text_dark};
+			color: ${v.text_3};
 			flex-direction: column;
 			gap: 1rem;
 			pointer-events: none;

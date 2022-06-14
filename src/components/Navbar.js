@@ -142,7 +142,13 @@ const Navbar = () => {
 							: 'News Box'
 					}
 				/>
-				<button css={styles.settings} onClick={() => setMenu(!menuIsOpen)}>
+				<button
+					css={styles.settings}
+					onClick={() => {
+						setMenu(!menuIsOpen);
+						window.scrollTo(0, 0);
+					}}
+				>
 					<FeatherIcon icon="settings" css={styles.settingsIcon} />
 					<div css={styles.cross}></div>
 				</button>

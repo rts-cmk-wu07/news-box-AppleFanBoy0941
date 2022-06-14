@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router';
 import './App.css';
 import ThemeContext from './context/ThemeContext';
-import { useRef, useState, useCallback } from 'react';
+import { useState } from 'react';
 import ThemeSwitchContext from './context/ThemeSwitchContext';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';

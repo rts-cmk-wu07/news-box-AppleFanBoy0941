@@ -53,13 +53,27 @@ const SettingsList = () => {
 			display: flex;
 			justify-content: center;
 			gap: 0.5rem;
+
+			& svg {
+				transition: 0.3s;
+			}
+
+			${!isCollapsed &&
+			`
+				& svg {
+					transform: rotate(180deg);
+			}
+			`}
 		`,
 		toggleList: css`
 			height: calc(${height} * ${collapsedCount}rem);
 			overflow-y: hidden;
 			transition: 0.5s;
 
-			${!isCollapsed && `height: ${listHeight}rem;`}
+			${!isCollapsed &&
+			`
+				height: ${listHeight}rem;
+			`}
 		`,
 	};
 
@@ -81,7 +95,8 @@ const SettingsList = () => {
 					css={styles.button}
 					onClick={() => setIsCollapsed(!isCollapsed)}
 				>
-					Expand List <FeatherIcon icon="chevron-down" />
+					{isCollapsed ? 'Expand list' : 'Collapse list'}{' '}
+					<FeatherIcon icon="chevron-down" />
 				</button>
 			</li>
 		</ul>
