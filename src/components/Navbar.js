@@ -57,6 +57,8 @@ const Navbar = () => {
 			justify-content: center;
 			background: transparent;
 			position: relative;
+			padding: 1rem;
+			margin-right: -1rem;
 		`,
 		settingsIcon: css`
 			transition: 1s;
@@ -112,6 +114,8 @@ const Navbar = () => {
 		`,
 		link: css`
 			transition: 0.3s;
+			padding: 1rem;
+			margin-left: -1rem;
 			${menuIsOpen &&
 			`
 				opacity: 0;
