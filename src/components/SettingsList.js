@@ -22,7 +22,7 @@ const SettingsList = () => {
 	}
 	const height = 5;
 	const listHeight = height * sectionList.length;
-	const collapsedCount = 5;
+	const collapsedCount = 4;
 	const styles = {
 		list: css`
 			background: ${v.text_3};

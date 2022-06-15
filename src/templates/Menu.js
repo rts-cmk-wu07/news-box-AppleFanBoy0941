@@ -62,6 +62,7 @@ const Menu = () => {
 			</div>
 			<SettingsList />
 			<ThemeToggle />
+			<small>Version: 4.8.23</small>
 		</div>
 	);
 };
