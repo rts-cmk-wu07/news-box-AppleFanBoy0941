@@ -8,8 +8,11 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import SearchContext from '../context/SearchContext';
 
 const Search = () => {
+	const search = useContext(SearchContext);
+	const { searchQ, setSearchQ } = search;
 	const [isActive, setIsActive] = useState(false);
 	const schema = yup.object({
 		search: yup.string().required('Search is required'),
@@ -92,6 +95,29 @@ const Search = () => {
 				filter: blur(0);
 			`};
 		`,
+		clear: css`
+			border: none;
+			background: transparent;
+			opacity: 0;
+			transition: 0.3s;
+			display: flex;
+			align-items: center;
+
+			& svg {
+				transition: 0.3s;
+				height: 0;
+				width: 0;
+			}
+
+			${searchQ &&
+			`
+				opacity: 1;
+
+				& svg {
+					height: 1rem;
+					width: 1rem;
+			`}
+		`,
 	};
 	return (
 		<div>
@@ -105,8 +131,13 @@ const Search = () => {
 						onBlur={() => setIsActive(false)}
 						name="search"
 						{...register('search')}
+						value={searchQ}
+						onChange={e => setSearchQ(e.target.value)}
 					/>
-					<button css={styles.button}>
+					<button css={styles.clear} onClick={() => setSearchQ('')}>
+						<FeatherIcon icon="x" />
+					</button>
+					<button css={styles.button} type="submit">
 						<FeatherIcon icon="search" />
 					</button>
 				</label>

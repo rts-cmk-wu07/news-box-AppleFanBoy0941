@@ -9,6 +9,7 @@ import { variables } from './variables/variables';
 import Navbar from './components/Navbar';
 import MenuContext from './context/MenuContext';
 import ActiveSectionContext from './context/ActiveSectionContext';
+import SearchContext from './context/SearchContext';
 
 function App() {
 	const [themeSwitch, setThemeSwitch] = useState('automatic');
@@ -74,6 +75,8 @@ function App() {
 
 	const [activeSections, setActiveSections] = useState(sectionList);
 
+	const [searchQ, setSearchQ] = useState('');
+
 	return (
 		<div className="App" css={styles.container}>
 			<ThemeSwitchContext.Provider value={{ themeSwitch, setThemeSwitch }}>
@@ -85,10 +88,12 @@ function App() {
 								setActiveSections,
 							}}
 						>
-							<Navbar />
-							<div>
-								<Outlet />
-							</div>
+							<SearchContext.Provider value={{ searchQ, setSearchQ }}>
+								<Navbar />
+								<div>
+									<Outlet />
+								</div>
+							</SearchContext.Provider>
 						</ActiveSectionContext.Provider>
 					</MenuContext.Provider>
 				</ThemeContext.Provider>
