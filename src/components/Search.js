@@ -23,7 +23,6 @@ const Search = () => {
 		formState: { errors },
 	} = useForm({ resolver: yupResolver(schema) });
 	const onSubmit = e => {
-		console.log(e);
 		setIsActive(false);
 	};
 	const context = useContext(ThemeContext);
