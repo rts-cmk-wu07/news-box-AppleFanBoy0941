@@ -27,7 +27,7 @@ const Menu = () => {
 			transition: 0.7s;
 			overflow-y: scroll;
 			width: 100vw;
-			margin-top: 1.5rem;
+			margin-top: 1rem;
 			display: flex;
 			flex-direction: column;
 			align-items: center;

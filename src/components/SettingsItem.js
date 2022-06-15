@@ -32,7 +32,9 @@ const SettingsItem = ({
 		button: css`
 			background: transparent;
 			border: none;
-			padding: 1rem 0 1rem 2rem;
+			padding: 1rem 1.5rem 1rem 1.5rem;
+			margin-right: -1.5rem;
+			border-radius: 10rem;
 		`,
 		buttonDiv: css`
 			display: flex;
