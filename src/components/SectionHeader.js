@@ -48,12 +48,11 @@ const SectionHeader = ({ title, isOpen, setIsOpen, numberOfArticles }) => {
 			border: none;
 			color: inherit;
 			transition: 0.25s;
-
+			border-radius: 10rem;
 			${isOpen &&
 			`
 				transform: rotate(90deg);
 			`}
-
 			& svg {
 				/* height: 2rem;
 				width: 2rem; */
