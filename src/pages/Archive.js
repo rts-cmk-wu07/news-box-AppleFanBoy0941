@@ -1,13 +1,13 @@
 import Sections from '../templates/Sections';
 import Search from '../components/Search';
+import { useState } from 'react';
 
 const Archive = () => {
-	const ls = localStorage.getItem('archive');
-	const data = JSON.parse(ls);
+	const [ls, setLs] = useState(JSON.parse(localStorage.getItem('archive')));
 	return (
 		<main>
 			<Search />
-			{data && <Sections data={data} />}
+			{ls && <Sections data={ls} updater={setLs} />}
 		</main>
 	);
 };

@@ -1,14 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
 import ThemeContext from '../context/ThemeContext';
 import { variables } from '../variables/variables';
 import Body from './subcomponents/Body';
 import Heading from './subcomponents/Heading';
 
 const SectionArticle = ({ data }) => {
-	const location = useLocation();
 	const context = useContext(ThemeContext);
 	const theme = context.theme;
 	let v;
@@ -25,6 +23,8 @@ const SectionArticle = ({ data }) => {
 			gap: 1rem;
 			border-top: 1px solid ${v.secondary_1};
 			width: 100%;
+			text-align: left;
+			position: relative;
 		`,
 		img: css`
 			height: 4.5rem;
@@ -47,7 +47,13 @@ const SectionArticle = ({ data }) => {
 
 	const findImage = media => {
 		if (media !== undefined) {
-			return <img css={styles.img} src={media['media-metadata'][0].url} />;
+			return (
+				<img
+					css={styles.img}
+					src={media['media-metadata'][0].url}
+					alt={media.caption}
+				/>
+			);
 		}
 		return <div css={styles.imgDiv}></div>;
 	};

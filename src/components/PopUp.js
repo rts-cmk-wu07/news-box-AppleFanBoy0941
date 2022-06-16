@@ -20,12 +20,10 @@ const PopUp = ({ popUp, popUpIsOpen }) => {
 			width: calc(100vw - 4rem);
 			height: 2rem;
 			position: fixed;
-			top: 2rem;
-			left: 50%;
-			transform: translateX(-50%);
+			top: 1rem;
+			left: 2rem;
 			background: ${v.primary_1};
 			z-index: 2000;
-			border-radius: 1.5rem;
 			opacity: 0;
 			padding: 0 2rem;
 			transition: 0.5s;
@@ -33,35 +31,34 @@ const PopUp = ({ popUp, popUpIsOpen }) => {
 			justify-content: center;
 			align-items: center;
 			color: ${v.text_3};
-			flex-direction: column;
 			gap: 1rem;
 			pointer-events: none;
-
+			border-radius: 1.5rem;
 			& p {
-				width: max(calc(100vw - 8rem), fit-content);
+				width: max(calc(100vw - 8rem - 1.5rem - 1rem), fit-content);
 				opacity: 0;
 				transition: 0.5s ease 0.5s;
 				overflow-x: hidden;
+				font-size: 14px;
 			}
 
 			& svg {
-				width: 2rem;
-				height: 2rem;
 				transition: 0.7s;
-				transform: scale(0.75) rotate(-90deg);
 				opacity: 0;
+				transform: rotate(-90deg);
 			}
 
 			${popUpIsOpen &&
 			`
-				height: 10rem;
+				top: 2rem;
+				height: 80px;
 				opacity: 1;
-				padding: 2rem; 
-				box-shadow: 0 0.25rem 2rem ${v.primary_1}a0;
+				padding: 1rem 2rem; 
 				pointer-events: all;
+				box-shadow: 0 .5rem 2rem ${v.primary_1}80;
 				& svg {
-					transform: scale(1) rotate(0);
-					opacity: 1
+					opacity: 1;
+					transform: rotate(0);
 				}
 				& p {
 					opacity: 1;
@@ -70,7 +67,7 @@ const PopUp = ({ popUp, popUpIsOpen }) => {
 		`,
 	};
 	return (
-		<Link to="/archive" css={styles.popup}>
+		<Link to="/archive" css={styles.popup} aria-label="Go to the archive">
 			<FeatherIcon icon="info" />
 			<p>{popUpIsOpen && popUp}</p>
 		</Link>

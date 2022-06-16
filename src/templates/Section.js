@@ -14,22 +14,24 @@ import {
 } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
 import FeatherIcon from 'feather-icons-react';
-import { Link, useLocation } from 'react-router-dom';
-import PopUp from '../components/PopUp';
+import { useLocation } from 'react-router-dom';
 
-const Section = ({ title, data }) => {
+const Section = ({ title, data, updater, setPopUp, setPopUpIsOpen }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const location = useLocation();
-	const [popUp, setPopUp] = useState('');
-	const [popUpIsOpen, setPopUpIsOpen] = useState(false);
 
 	const filterData = articles => {
 		return articles.filter(article => article.section === title);
 	};
 
-	const [numberOfArticles, setNumberOfArticles] = useState(
-		filterData(data).length
-	);
+	// const [numberOfArticles, setNumberOfArticles] = useState(
+	// 	data.filter(article => article.section === title).length
+	// );
+
+	let numberOfArticles = data.filter(
+		article => article.section === title
+	).length;
+
 	const articleHeight = 6;
 
 	const context = useContext(ThemeContext);
@@ -64,6 +66,14 @@ const Section = ({ title, data }) => {
 			color: ${v.text_light};
 			width: 7rem;
 		`,
+		div: css`
+			transition: calc(0.05s * ${numberOfArticles} + 0.25s);
+			${!isOpen &&
+			`
+				margin-top: -3rem;
+				opacity: 0;
+			`}
+		`,
 	};
 
 	const swipeHandler = article => {
@@ -71,11 +81,12 @@ const Section = ({ title, data }) => {
 		const archive = JSON.parse(ls);
 
 		if (location.pathname === '/archive') {
-			const newArchive = archive.filter(
-				item => item.title !== article.title && item.section !== article.section
-			);
-			localStorage.setItem('archive', JSON.stringify(newArchive));
-			setNumberOfArticles(numberOfArticles - 1);
+			setTimeout(() => {
+				const newArchive = archive.filter(item => item.title !== article.title);
+				localStorage.setItem('archive', JSON.stringify(newArchive));
+				numberOfArticles--;
+				updater(newArchive);
+			}, 500);
 		} else {
 			let isDuplicate;
 			if (archive) {
@@ -111,7 +122,7 @@ const Section = ({ title, data }) => {
 			} else {
 				console.log('duplicate');
 				setPopUpIsOpen(true);
-				setPopUp(`You have already saved this article`);
+				setPopUp('You have already saved this article');
 				setTimeout(() => {
 					setPopUpIsOpen(false);
 				}, 5000);
@@ -138,12 +149,10 @@ const Section = ({ title, data }) => {
 					filterData(data).map((article, index) => (
 						<SwipeableListItem
 							key={index}
+							css={styles.div}
 							trailingActions={
 								<TrailingActions>
-									<SwipeAction
-										onClick={() => swipeHandler(article)}
-										destructive={location.pathname === '/archive'}
-									>
+									<SwipeAction onClick={() => swipeHandler(article)}>
 										<div css={styles.action}>
 											<FeatherIcon icon="inbox" />
 										</div>
@@ -155,7 +164,6 @@ const Section = ({ title, data }) => {
 						</SwipeableListItem>
 					))}
 			</SwipeableList>
-			<PopUp popUp={popUp} popUpIsOpen={popUpIsOpen} />
 		</section>
 	);
 };

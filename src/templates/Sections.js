@@ -1,13 +1,12 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Section from './Section';
 import ActiveSectionContext from '../context/ActiveSectionContext';
 import PullToRefresh from 'react-simple-pull-to-refresh';
-import useFetch from '../hooks/useFetch';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import PopUp from '../components/PopUp';
 
-const url = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=';
-const key = 'jWCYReQL9liE93kNAYf6W9u3lufxbbF1';
-
-const Sections = ({ data }) => {
+const Sections = ({ data, updater }) => {
 	const { sections } = useContext(ActiveSectionContext);
 	const sorted = data.sort((a, b) => {
 		if (a.section < b.section) {
@@ -25,19 +24,44 @@ const Sections = ({ data }) => {
 	});
 
 	const handleRefresh = () => {
-		setTimeout(() => {
-			window.location.reload();
-		}, 0);
+		window.location.reload();
+	};
+
+	const [popUp, setPopUp] = useState('');
+	const [popUpIsOpen, setPopUpIsOpen] = useState(false);
+
+	const styles = {
+		ptr: css`
+			text-align: center;
+
+			& .ptr__pull-down--pull-more {
+				& div {
+					& p {
+						padding: 1rem;
+					}
+				}
+			}
+		`,
 	};
 
 	return (
-		<PullToRefresh onRefresh={handleRefresh}>
-			<div>
-				{filteredTitles.map(title => (
-					<Section key={title} title={title} data={data} />
-				))}
-			</div>
-		</PullToRefresh>
+		<>
+			<PullToRefresh onRefresh={handleRefresh} css={styles.ptr}>
+				<div>
+					{filteredTitles.map(title => (
+						<Section
+							key={title}
+							title={title}
+							data={data}
+							updater={updater}
+							setPopUp={setPopUp}
+							setPopUpIsOpen={setPopUpIsOpen}
+						/>
+					))}
+				</div>
+			</PullToRefresh>
+			<PopUp popUp={popUp} popUpIsOpen={popUpIsOpen} />
+		</>
 	);
 };
 
