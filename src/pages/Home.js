@@ -11,22 +11,21 @@ const key = 'jWCYReQL9liE93kNAYf6W9u3lufxbbF1';
 
 const Home = () => {
 	const search = useContext(SearchContext);
-	const { searchQ, setSearchQ } = search;
+	const { searchQ } = search;
 	const { data, isPending, error } = useFetch(`${url}${key}`);
 	let results = data && data.results;
 	results =
 		results &&
 		results.filter(item => {
-			if (searchQ) {
+			if (searchQ !== '') {
 				return (
 					item.title.toLowerCase().includes(searchQ.toLowerCase()) ||
 					item.abstract.toLowerCase().includes(searchQ.toLowerCase()) ||
 					item.section.toLowerCase().includes(searchQ.toLowerCase())
 				);
 			}
-			return true;
+			return item;
 		});
-
 	return (
 		<main>
 			<Search />

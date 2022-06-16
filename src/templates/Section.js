@@ -17,7 +17,7 @@ import FeatherIcon from 'feather-icons-react';
 import { Link, useLocation } from 'react-router-dom';
 import PopUp from '../components/PopUp';
 
-const Section = ({ title, data }) => {
+const Section = ({ title, data, updater }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const location = useLocation();
 	const [popUp, setPopUp] = useState('');
@@ -27,9 +27,14 @@ const Section = ({ title, data }) => {
 		return articles.filter(article => article.section === title);
 	};
 
-	const [numberOfArticles, setNumberOfArticles] = useState(
-		filterData(data).length
-	);
+	// const [numberOfArticles, setNumberOfArticles] = useState(
+	// 	data.filter(article => article.section === title).length
+	// );
+
+	let numberOfArticles = data.filter(
+		article => article.section === title
+	).length;
+
 	const articleHeight = 6;
 
 	const context = useContext(ThemeContext);
@@ -71,11 +76,12 @@ const Section = ({ title, data }) => {
 		const archive = JSON.parse(ls);
 
 		if (location.pathname === '/archive') {
-			const newArchive = archive.filter(
-				item => item.title !== article.title && item.section !== article.section
-			);
-			localStorage.setItem('archive', JSON.stringify(newArchive));
-			setNumberOfArticles(numberOfArticles - 1);
+			setTimeout(() => {
+				const newArchive = archive.filter(item => item.title !== article.title);
+				localStorage.setItem('archive', JSON.stringify(newArchive));
+				numberOfArticles--;
+				updater(newArchive);
+			}, 100);
 		} else {
 			let isDuplicate;
 			if (archive) {
@@ -142,7 +148,7 @@ const Section = ({ title, data }) => {
 								<TrailingActions>
 									<SwipeAction
 										onClick={() => swipeHandler(article)}
-										destructive={location.pathname === '/archive'}
+										// destructive={location.pathname === '/archive'}
 									>
 										<div css={styles.action}>
 											<FeatherIcon icon="inbox" />

@@ -2,12 +2,8 @@ import { useContext } from 'react';
 import Section from './Section';
 import ActiveSectionContext from '../context/ActiveSectionContext';
 import PullToRefresh from 'react-simple-pull-to-refresh';
-import useFetch from '../hooks/useFetch';
 
-const url = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=';
-const key = 'jWCYReQL9liE93kNAYf6W9u3lufxbbF1';
-
-const Sections = ({ data }) => {
+const Sections = ({ data, updater }) => {
 	const { sections } = useContext(ActiveSectionContext);
 	const sorted = data.sort((a, b) => {
 		if (a.section < b.section) {
@@ -34,7 +30,7 @@ const Sections = ({ data }) => {
 		<PullToRefresh onRefresh={handleRefresh}>
 			<div>
 				{filteredTitles.map(title => (
-					<Section key={title} title={title} data={data} />
+					<Section key={title} title={title} data={data} updater={updater} />
 				))}
 			</div>
 		</PullToRefresh>

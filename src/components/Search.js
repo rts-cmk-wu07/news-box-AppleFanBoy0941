@@ -17,13 +17,12 @@ const Search = () => {
 	const schema = yup.object({
 		search: yup.string().required('Search is required'),
 	});
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm({ resolver: yupResolver(schema) });
+	// const {
+	// 	register,
+	// 	handleSubmit,
+	// 	formState: { errors },
+	// } = useForm({ resolver: yupResolver(schema) });
 	const onSubmit = e => {
-		e.preventDefault();
 		console.log(e);
 		setIsActive(false);
 	};
@@ -81,21 +80,6 @@ const Search = () => {
 			display: block;
 			border-radius: 10rem;
 		`,
-		error: css`
-			height: 0;
-			transition: 0.3s;
-			margin-left: 0.5rem;
-			color: ${v.primary_2};
-			opacity: 0;
-			filter: blur(1rem);
-			${errors.search &&
-			`
-				margin-top: 1rem;
-				height: 20px;
-				opacity: 1;
-				filter: blur(0);
-			`};
-		`,
 		clear: css`
 			border: none;
 			background: transparent;
@@ -122,7 +106,7 @@ const Search = () => {
 	};
 	return (
 		<div>
-			<form css={styles.form} onSubmit={handleSubmit(onSubmit)}>
+			<form css={styles.form} onSubmit={onSubmit}>
 				<label css={styles.label}>
 					<input
 						css={styles.input}
@@ -131,18 +115,16 @@ const Search = () => {
 						onFocus={() => setIsActive(true)}
 						onBlur={() => setIsActive(false)}
 						name="search"
-						{...register('search')}
 						value={searchQ}
 						onChange={e => setSearchQ(e.target.value)}
 					/>
-					{/* <button css={styles.clear} onClick={() => setSearchQ('')}>
+					<button css={styles.clear} onClick={() => setSearchQ('')}>
 						<FeatherIcon icon="x" />
-					</button> */}
+					</button>
 					<button css={styles.button} type="submit">
 						<FeatherIcon icon="search" />
 					</button>
 				</label>
-				<p css={styles.error}>Please enter a keyword</p>
 			</form>
 		</div>
 	);
