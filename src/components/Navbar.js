@@ -131,11 +131,11 @@ const Navbar = () => {
 		<nav css={styles.nav}>
 			<div css={styles.div}>
 				{location.pathname === '/home' ? (
-					<Link to="archive" css={styles.link}>
+					<Link to="archive" css={styles.link} aria-label="Go to archive">
 						<FeatherIcon icon="inbox" />
 					</Link>
 				) : (
-					<Link to="home" css={styles.link}>
+					<Link to="home" css={styles.link} aria-label="Go back">
 						<FeatherIcon icon="chevron-left" />
 					</Link>
 				)}
@@ -155,6 +155,7 @@ const Navbar = () => {
 						setMenu(!menuIsOpen);
 						window.scrollTo(0, 0);
 					}}
+					aria-label="Open settings"
 				>
 					<FeatherIcon icon="settings" css={styles.settingsIcon} />
 					<div css={styles.cross}></div>

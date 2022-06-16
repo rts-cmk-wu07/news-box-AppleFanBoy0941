@@ -103,13 +103,17 @@ const SectionHeader = ({ title, isOpen, setIsOpen, numberOfArticles }) => {
 	};
 
 	return (
-		<header css={styles.header} onClick={() => setIsOpen(!isOpen)}>
+		<header
+			css={styles.header}
+			onClick={() => setIsOpen(!isOpen)}
+			aria-label={`${title} section`}
+		>
 			<div css={styles.icon}>
 				<FeatherIcon icon={matchSectionWithIcons(title)} />
 			</div>
 			<Heading type="sub" text={title} />
 			<span css={styles.number}>{numberOfArticles}</span>
-			<button css={styles.button}>
+			<button css={styles.button} aria-label={`Open ${title} section`}>
 				<FeatherIcon icon="chevron-right" />
 			</button>
 		</header>

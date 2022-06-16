@@ -14,14 +14,11 @@ import {
 } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
 import FeatherIcon from 'feather-icons-react';
-import { Link, useLocation } from 'react-router-dom';
-import PopUp from '../components/PopUp';
+import { useLocation } from 'react-router-dom';
 
-const Section = ({ title, data, updater }) => {
+const Section = ({ title, data, updater, setPopUp, setPopUpIsOpen }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const location = useLocation();
-	const [popUp, setPopUp] = useState('');
-	const [popUpIsOpen, setPopUpIsOpen] = useState(false);
 
 	const filterData = articles => {
 		return articles.filter(article => article.section === title);
@@ -69,6 +66,14 @@ const Section = ({ title, data, updater }) => {
 			color: ${v.text_light};
 			width: 7rem;
 		`,
+		div: css`
+			transition: calc(0.05s * ${numberOfArticles} + 0.25s);
+			${!isOpen &&
+			`
+				margin-top: -3rem;
+				opacity: 0;
+			`}
+		`,
 	};
 
 	const swipeHandler = article => {
@@ -81,7 +86,7 @@ const Section = ({ title, data, updater }) => {
 				localStorage.setItem('archive', JSON.stringify(newArchive));
 				numberOfArticles--;
 				updater(newArchive);
-			}, 100);
+			}, 500);
 		} else {
 			let isDuplicate;
 			if (archive) {
@@ -117,7 +122,7 @@ const Section = ({ title, data, updater }) => {
 			} else {
 				console.log('duplicate');
 				setPopUpIsOpen(true);
-				setPopUp(`You have already saved this article`);
+				setPopUp('You have already saved this article');
 				setTimeout(() => {
 					setPopUpIsOpen(false);
 				}, 5000);
@@ -144,12 +149,10 @@ const Section = ({ title, data, updater }) => {
 					filterData(data).map((article, index) => (
 						<SwipeableListItem
 							key={index}
+							css={styles.div}
 							trailingActions={
 								<TrailingActions>
-									<SwipeAction
-										onClick={() => swipeHandler(article)}
-										// destructive={location.pathname === '/archive'}
-									>
+									<SwipeAction onClick={() => swipeHandler(article)}>
 										<div css={styles.action}>
 											<FeatherIcon icon="inbox" />
 										</div>
@@ -161,7 +164,6 @@ const Section = ({ title, data, updater }) => {
 						</SwipeableListItem>
 					))}
 			</SwipeableList>
-			<PopUp popUp={popUp} popUpIsOpen={popUpIsOpen} />
 		</section>
 	);
 };

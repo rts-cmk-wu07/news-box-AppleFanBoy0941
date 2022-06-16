@@ -5,24 +5,14 @@ import { useContext } from 'react';
 import ThemeContext from '../context/ThemeContext';
 import { variables } from '../variables/variables';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
 import SearchContext from '../context/SearchContext';
 
 const Search = () => {
 	const search = useContext(SearchContext);
 	const { searchQ, setSearchQ } = search;
 	const [isActive, setIsActive] = useState(false);
-	const schema = yup.object({
-		search: yup.string().required('Search is required'),
-	});
-	// const {
-	// 	register,
-	// 	handleSubmit,
-	// 	formState: { errors },
-	// } = useForm({ resolver: yupResolver(schema) });
 	const onSubmit = e => {
+		e.preventDefault();
 		console.log(e);
 		setIsActive(false);
 	};
@@ -118,12 +108,16 @@ const Search = () => {
 						value={searchQ}
 						onChange={e => setSearchQ(e.target.value)}
 					/>
-					<button css={styles.clear} onClick={() => setSearchQ('')}>
+					<button
+						css={styles.clear}
+						onClick={() => setSearchQ('')}
+						aria-label="Clear search field"
+					>
 						<FeatherIcon icon="x" />
 					</button>
-					<button css={styles.button} type="submit">
+					<div css={styles.button}>
 						<FeatherIcon icon="search" />
-					</button>
+					</div>
 				</label>
 			</form>
 		</div>

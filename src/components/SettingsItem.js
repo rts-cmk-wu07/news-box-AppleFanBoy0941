@@ -72,7 +72,11 @@ const SettingsItem = ({
 	return (
 		<li css={styles.item}>
 			<Heading type="sub" text={section} />
-			<button css={styles.button} onClick={clickHandler}>
+			<button
+				css={styles.button}
+				onClick={clickHandler}
+				aria-label={`Toggle ${section} ${isActive ? 'off' : 'on'}`}
+			>
 				<div css={styles.buttonDiv}>
 					<div css={styles.toggle}></div>
 				</div>
