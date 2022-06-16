@@ -23,6 +23,8 @@ const Search = () => {
 		formState: { errors },
 	} = useForm({ resolver: yupResolver(schema) });
 	const onSubmit = e => {
+		e.preventDefault();
+		console.log(e);
 		setIsActive(false);
 	};
 	const context = useContext(ThemeContext);
@@ -133,9 +135,9 @@ const Search = () => {
 						value={searchQ}
 						onChange={e => setSearchQ(e.target.value)}
 					/>
-					<button css={styles.clear} onClick={() => setSearchQ('')}>
+					{/* <button css={styles.clear} onClick={() => setSearchQ('')}>
 						<FeatherIcon icon="x" />
-					</button>
+					</button> */}
 					<button css={styles.button} type="submit">
 						<FeatherIcon icon="search" />
 					</button>
