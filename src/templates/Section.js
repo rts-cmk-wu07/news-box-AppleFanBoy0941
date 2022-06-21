@@ -16,7 +16,7 @@ import 'react-swipeable-list/dist/styles.css';
 import FeatherIcon from 'feather-icons-react';
 import { useLocation } from 'react-router-dom';
 
-const Section = ({ title, data, updater, setPopUp, setPopUpIsOpen }) => {
+const Section = ({ title, data, updater, setPopUp, setPopUpIsOpen, id }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const location = useLocation();
 
@@ -67,12 +67,23 @@ const Section = ({ title, data, updater, setPopUp, setPopUpIsOpen }) => {
 			width: 7rem;
 		`,
 		div: css`
+			background: ${v.text_3};
 			transition: calc(0.05s * ${numberOfArticles} + 0.25s);
 			${!isOpen &&
 			`
-				margin-top: -3rem;
+				margin-top: -6rem;
 				opacity: 0;
+				transform: scale(.7);
+				filter: blur(1rem);
 			`}
+		`,
+		delete: css`
+			background: ${v.primary_2};
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: ${v.text_light};
+			width: 7rem;
 		`,
 	};
 
@@ -131,7 +142,7 @@ const Section = ({ title, data, updater, setPopUp, setPopUpIsOpen }) => {
 	};
 
 	return (
-		<section css={styles.section}>
+		<section css={styles.section} id={id}>
 			<SectionHeader
 				title={title}
 				isOpen={isOpen}
@@ -153,9 +164,15 @@ const Section = ({ title, data, updater, setPopUp, setPopUpIsOpen }) => {
 							trailingActions={
 								<TrailingActions>
 									<SwipeAction onClick={() => swipeHandler(article)}>
-										<div css={styles.action}>
-											<FeatherIcon icon="inbox" />
-										</div>
+										{location.pathname === '/home' ? (
+											<div css={styles.action}>
+												<FeatherIcon icon="inbox" />
+											</div>
+										) : (
+											<div css={styles.delete}>
+												<FeatherIcon icon="trash-2" />
+											</div>
+										)}
 									</SwipeAction>
 								</TrailingActions>
 							}

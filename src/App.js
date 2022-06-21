@@ -10,6 +10,7 @@ import Navbar from './components/Navbar';
 import MenuContext from './context/MenuContext';
 import ActiveSectionContext from './context/ActiveSectionContext';
 import SearchContext from './context/SearchContext';
+import Joyride from 'react-joyride';
 
 function App() {
 	const [themeSwitch, setThemeSwitch] = useState('automatic');
@@ -45,6 +46,8 @@ function App() {
 	});
 
 	const [menu, setMenu] = useState(false);
+
+	const steps = [{ target: '#section-1', content: 'Welcome to the News App!' }];
 
 	const sections = [
 		'World',
@@ -89,6 +92,7 @@ function App() {
 							}}
 						>
 							<SearchContext.Provider value={{ searchQ, setSearchQ }}>
+								<Joyride steps={steps} continuous="true" />
 								<Navbar />
 								<div>
 									<Outlet />

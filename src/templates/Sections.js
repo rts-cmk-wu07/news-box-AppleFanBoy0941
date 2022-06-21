@@ -48,7 +48,7 @@ const Sections = ({ data, updater }) => {
 		<>
 			<PullToRefresh onRefresh={handleRefresh} css={styles.ptr}>
 				<div>
-					{filteredTitles.map(title => (
+					{filteredTitles.map((title, index) => (
 						<Section
 							key={title}
 							title={title}
@@ -56,6 +56,7 @@ const Sections = ({ data, updater }) => {
 							updater={updater}
 							setPopUp={setPopUp}
 							setPopUpIsOpen={setPopUpIsOpen}
+							id={`section-${index}`}
 						/>
 					))}
 				</div>
