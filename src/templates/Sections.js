@@ -1,10 +1,9 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import Section from './Section';
 import ActiveSectionContext from '../context/ActiveSectionContext';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import PopUp from '../components/PopUp';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ThemeContext from '../context/ThemeContext';
@@ -30,9 +29,6 @@ const Sections = ({ data, updater }) => {
 	const handleRefresh = () => {
 		window.location.reload();
 	};
-
-	const [popUp, setPopUp] = useState('');
-	const [popUpIsOpen, setPopUpIsOpen] = useState(false);
 
 	const context = useContext(ThemeContext);
 	const theme = context.theme;
@@ -92,15 +88,12 @@ const Sections = ({ data, updater }) => {
 							title={title}
 							data={data}
 							updater={updater}
-							setPopUp={setPopUp}
-							setPopUpIsOpen={setPopUpIsOpen}
 							id={`section-${index}`}
 						/>
 					))}
 				</div>
 			</PullToRefresh>
 			<ToastContainer css={styles.toast} />
-			<PopUp popUp={popUp} popUpIsOpen={popUpIsOpen} />
 		</>
 	);
 };

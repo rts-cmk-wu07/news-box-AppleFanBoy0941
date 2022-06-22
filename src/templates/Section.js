@@ -25,10 +25,6 @@ const Section = ({ title, data, updater, setPopUp, setPopUpIsOpen, id }) => {
 		return articles.filter(article => article.section === title);
 	};
 
-	// const [numberOfArticles, setNumberOfArticles] = useState(
-	// 	data.filter(article => article.section === title).length
-	// );
-
 	let numberOfArticles = data.filter(
 		article => article.section === title
 	).length;
@@ -126,22 +122,11 @@ const Section = ({ title, data, updater, setPopUp, setPopUpIsOpen, id }) => {
 					updatedArchive = [newArchive];
 				}
 				localStorage.setItem('archive', JSON.stringify(updatedArchive));
-				// setPopUpIsOpen(true);
-				// setPopUp('The article is saved. You can find it in the archive.');
 				toast.success('The article is saved. You can find it in the archive.', {
 					position: 'top-center',
 				});
-				setTimeout(() => {
-					setPopUpIsOpen(false);
-				}, 5000);
 			} else {
-				console.log('duplicate');
-				// setPopUpIsOpen(true);
-				// setPopUp('You have already saved this article');
 				toast.info('You have already saved this article');
-				setTimeout(() => {
-					setPopUpIsOpen(false);
-				}, 5000);
 			}
 		}
 	};
