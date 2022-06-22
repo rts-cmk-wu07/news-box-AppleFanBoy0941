@@ -11,6 +11,7 @@ import MenuContext from './context/MenuContext';
 import ActiveSectionContext from './context/ActiveSectionContext';
 import SearchContext from './context/SearchContext';
 import Joyride from 'react-joyride';
+import Tutorial from './templates/Tutorial';
 
 function App() {
 	const [themeSwitch, setThemeSwitch] = useState('automatic');
@@ -80,6 +81,8 @@ function App() {
 
 	const [searchQ, setSearchQ] = useState('');
 
+	const tutorial = localStorage.getItem('tutorial');
+
 	return (
 		<div className="App" css={styles.container}>
 			<ThemeSwitchContext.Provider value={{ themeSwitch, setThemeSwitch }}>
@@ -93,6 +96,7 @@ function App() {
 						>
 							<SearchContext.Provider value={{ searchQ, setSearchQ }}>
 								<Joyride steps={steps} continuous="true" />
+								{tutorial !== 'done' && <Tutorial step={tutorial} />}
 								<Navbar />
 								<div>
 									<Outlet />
