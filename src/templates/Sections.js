@@ -93,7 +93,11 @@ const Sections = ({ data, updater }) => {
 					))}
 				</div>
 			</PullToRefresh>
-			<ToastContainer css={styles.toast} />
+			<ToastContainer
+				css={styles.toast}
+				draggablePercent={50}
+				draggableDirection="y"
+			/>
 		</>
 	);
 };
