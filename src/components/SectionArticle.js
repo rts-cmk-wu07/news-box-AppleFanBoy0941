@@ -5,6 +5,7 @@ import ThemeContext from '../context/ThemeContext';
 import { variables } from '../variables/variables';
 import Body from './subcomponents/Body';
 import Heading from './subcomponents/Heading';
+import FeatherIcon from 'feather-icons-react';
 
 const SectionArticle = ({ data }) => {
 	const context = useContext(ThemeContext);
@@ -42,6 +43,16 @@ const SectionArticle = ({ data }) => {
 			width: 4.5rem;
 			border-radius: 100px;
 			background: ${v.primary_1}50;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			& svg {
+				opacity: 0.5;
+				stroke-width: 3px;
+				stroke: ${v.text_1};
+				overflow: visible;
+			}
 		`,
 	};
 
@@ -55,7 +66,11 @@ const SectionArticle = ({ data }) => {
 				/>
 			);
 		}
-		return <div css={styles.imgDiv}></div>;
+		return (
+			<div css={styles.imgDiv}>
+				<FeatherIcon icon="camera-off" />
+			</div>
+		);
 	};
 
 	const clickHandler = () => {

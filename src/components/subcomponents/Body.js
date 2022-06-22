@@ -22,6 +22,7 @@ const Body = ({ type, color, text }) => {
 			width: 100%;
 			overflow: hidden;
 			text-overflow: ellipsis;
+			color: ${color || v.text_2};
 		`,
 	};
 	return <>{type === 'card' && <p css={styles.card}>{text}</p>}</>;

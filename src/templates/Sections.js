@@ -5,6 +5,10 @@ import PullToRefresh from 'react-simple-pull-to-refresh';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import PopUp from '../components/PopUp';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ThemeContext from '../context/ThemeContext';
+import { variables } from '../variables/variables';
 
 const Sections = ({ data, updater }) => {
 	const { sections } = useContext(ActiveSectionContext);
@@ -30,6 +34,15 @@ const Sections = ({ data, updater }) => {
 	const [popUp, setPopUp] = useState('');
 	const [popUpIsOpen, setPopUpIsOpen] = useState(false);
 
+	const context = useContext(ThemeContext);
+	const theme = context.theme;
+	let v;
+	if (theme === 'dark') {
+		v = variables.dark;
+	} else {
+		v = variables.light;
+	}
+
 	const styles = {
 		ptr: css`
 			text-align: center;
@@ -40,6 +53,31 @@ const Sections = ({ data, updater }) => {
 						padding: 1rem;
 					}
 				}
+			}
+		`,
+		toast: css`
+			width: calc(100vw - 3rem);
+			margin: 1.5rem;
+			border-radius: 0.5rem;
+
+			& .Toastify__toast {
+				border-radius: 0.5rem;
+				font-family: 'Inter';
+				box-shadow: 0 0.5rem 1.5rem ${v.text_dark}20;
+				background: ${v.secondary_2};
+				color: ${v.text_1};
+
+				&-icon {
+					fill: ${v.primary_1};
+				}
+			}
+
+			& .Toastify__close-button {
+				color: ${v.text_1};
+			}
+
+			& .Toastify__progress-bar {
+				background: linear-gradient(to right, ${v.primary_1}, ${v.primary_2});
 			}
 		`,
 	};
@@ -61,6 +99,7 @@ const Sections = ({ data, updater }) => {
 					))}
 				</div>
 			</PullToRefresh>
+			<ToastContainer css={styles.toast} />
 			<PopUp popUp={popUp} popUpIsOpen={popUpIsOpen} />
 		</>
 	);

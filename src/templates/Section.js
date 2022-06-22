@@ -15,6 +15,7 @@ import {
 import 'react-swipeable-list/dist/styles.css';
 import FeatherIcon from 'feather-icons-react';
 import { useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Section = ({ title, data, updater, setPopUp, setPopUpIsOpen, id }) => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -125,15 +126,19 @@ const Section = ({ title, data, updater, setPopUp, setPopUpIsOpen, id }) => {
 					updatedArchive = [newArchive];
 				}
 				localStorage.setItem('archive', JSON.stringify(updatedArchive));
-				setPopUpIsOpen(true);
-				setPopUp('The article is saved. You can find it in the archive.');
+				// setPopUpIsOpen(true);
+				// setPopUp('The article is saved. You can find it in the archive.');
+				toast.success('The article is saved. You can find it in the archive.', {
+					position: 'top-center',
+				});
 				setTimeout(() => {
 					setPopUpIsOpen(false);
 				}, 5000);
 			} else {
 				console.log('duplicate');
-				setPopUpIsOpen(true);
-				setPopUp('You have already saved this article');
+				// setPopUpIsOpen(true);
+				// setPopUp('You have already saved this article');
+				toast.info('You have already saved this article');
 				setTimeout(() => {
 					setPopUpIsOpen(false);
 				}, 5000);
