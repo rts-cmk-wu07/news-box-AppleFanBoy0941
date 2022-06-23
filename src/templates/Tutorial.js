@@ -6,7 +6,6 @@ import { useContext } from 'react';
 import { variables } from '../variables/variables';
 import FeatherIcon from 'feather-icons-react';
 import TutorialContent from '../components/TutorialContent';
-import { useState } from 'react';
 import tutorial from '../content/tutorialSteps';
 
 const Tutorial = ({ currentStep, setCurrentStep }) => {

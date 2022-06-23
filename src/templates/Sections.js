@@ -25,7 +25,6 @@ const Sections = ({ data, updater }) => {
 	const filteredTitles = sections.activeSections.filter(title => {
 		return titles.includes(title);
 	});
-
 	const handleRefresh = () => {
 		window.location.reload();
 	};

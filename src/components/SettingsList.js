@@ -7,10 +7,12 @@ import ThemeContext from '../context/ThemeContext';
 import { variables } from '../variables/variables';
 import FeatherIcon from 'feather-icons-react';
 import ActiveSectionContext from '../context/ActiveSectionContext';
+import { Reorder } from 'framer-motion';
 
 const SettingsList = () => {
-	const { sections, setActiveSections } = useContext(ActiveSectionContext);
+	const { sections, actions } = useContext(ActiveSectionContext);
 	const { sectionList, activeSections } = sections;
+	const { setSectionList, setActiveSections } = actions;
 	const [isCollapsed, setIsCollapsed] = useState(true);
 	const context = useContext(ThemeContext);
 	const theme = context.theme;
@@ -78,20 +80,27 @@ const SettingsList = () => {
 	};
 
 	localStorage.setItem('activeSections', JSON.stringify(activeSections));
+	localStorage.setItem('sectionList', JSON.stringify(sectionList));
 
 	return (
 		<ul css={styles.list}>
-			<div css={styles.toggleList}>
-				{sectionList.map((section, index) => (
-					<SettingsItem
-						section={section}
-						key={index}
-						state={activeSections.includes(section)}
-						activeSections={activeSections}
-						setActiveSections={setActiveSections}
-					/>
+			<Reorder.Group
+				axis="y"
+				css={styles.toggleList}
+				values={sectionList}
+				onReorder={setSectionList}
+			>
+				{sectionList.map(section => (
+					<Reorder.Item key={section} value={section}>
+						<SettingsItem
+							section={section}
+							state={activeSections.includes(section)}
+							activeSections={activeSections}
+							setActiveSections={setActiveSections}
+						/>
+					</Reorder.Item>
 				))}
-			</div>
+			</Reorder.Group>
 			<li css={styles.li}>
 				<button
 					css={styles.button}
