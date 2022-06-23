@@ -76,7 +76,10 @@ function App() {
 		'Well',
 	];
 
-	const sectionList = sections.sort();
+	const sectionListLS = JSON.parse(localStorage.getItem('sectionList'));
+	const [sectionList, setSectionList] = useState(
+		sectionListLS || sections.sort()
+	);
 
 	const [activeSections, setActiveSections] = useState(
 		activeSectionsLS || sectionList
@@ -95,7 +98,7 @@ function App() {
 						<ActiveSectionContext.Provider
 							value={{
 								sections: { sectionList, activeSections },
-								setActiveSections,
+								actions: { setSectionList, setActiveSections },
 							}}
 						>
 							<SearchContext.Provider value={{ searchQ, setSearchQ }}>
