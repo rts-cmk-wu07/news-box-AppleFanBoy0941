@@ -7,8 +7,10 @@ import { variables } from '../variables/variables';
 import FeatherIcon from 'feather-icons-react';
 import TutorialContent from '../components/TutorialContent';
 import { useState } from 'react';
+import tutorial from '../content/tutorialSteps';
 
-const Tutorial = () => {
+const Tutorial = ({ currentStep, setCurrentStep }) => {
+	console.log(currentStep, tutorial.length);
 	const context = useContext(ThemeContext);
 	const theme = context.theme;
 	let v;
@@ -28,12 +30,27 @@ const Tutorial = () => {
 			width: calc(100vw - 2rem);
 			padding: 2rem;
 			border-radius: 1rem;
+			overflow: hidden;
+			transition: 1s;
+			border: 2px solid ${v.primary_1}20;
+
+			& h2 {
+				width: calc(100vw - 2rem - 4rem);
+			}
+
+			${currentStep > tutorial.length &&
+			`
+				height: 2rem;
+				width: 2rem;
+				opacity: 0;
+				pointer-events: none;
+			`}
 		`,
 		button: css`
 			display: flex;
 			align-items: center;
-			gap: 0.5rem;
-			padding: 0.5rem 2rem;
+			gap: 1rem;
+			padding: 0.5rem 1.5rem 0.5rem 2rem;
 			position: absolute;
 			bottom: 2rem;
 			right: 2rem;
@@ -44,12 +61,14 @@ const Tutorial = () => {
 			font-size: 1rem;
 			font-weight: 700;
 			border: none;
+			transition: 0.3s;
+
+			${currentStep > tutorial.length &&
+			`
+				opacity: 0;
+			`}
 		`,
 	};
-
-	const ls = parseInt(localStorage.getItem('tutorial'));
-
-	const [currentStep, setCurrentStep] = useState(ls || 0);
 
 	const clickHandler = () => {
 		setCurrentStep(currentStep + 1);
@@ -61,7 +80,16 @@ const Tutorial = () => {
 			<Heading type="secondary" text="Welcome to Newsbox" />
 			<TutorialContent currentStep={currentStep} />
 			<button css={styles.button} onClick={clickHandler}>
-				Next <FeatherIcon icon="chevron-right" />
+				{currentStep < tutorial.length ? (
+					<>
+						<span>Next</span> <FeatherIcon icon="chevron-right" />
+					</>
+				) : (
+					<>
+						<span>Done</span>
+						<FeatherIcon icon="check" />
+					</>
+				)}
 			</button>
 		</section>
 	);
