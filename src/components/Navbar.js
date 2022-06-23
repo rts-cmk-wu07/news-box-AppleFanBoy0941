@@ -9,7 +9,7 @@ import { variables } from '../variables/variables';
 import MenuContext from '../context/MenuContext';
 import Menu from '../templates/Menu';
 
-const Navbar = () => {
+const Navbar = ({ setCurrentStep }) => {
 	const location = useLocation();
 
 	const menu = useContext(MenuContext);
@@ -161,7 +161,7 @@ const Navbar = () => {
 					<div css={styles.cross}></div>
 				</button>
 			</div>
-			<Menu />
+			<Menu setCurrentStep={setCurrentStep} />
 		</nav>
 	);
 };
