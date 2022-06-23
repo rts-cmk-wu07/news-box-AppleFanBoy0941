@@ -77,6 +77,8 @@ const SettingsList = () => {
 		`,
 	};
 
+	localStorage.setItem('activeSections', JSON.stringify(activeSections));
+
 	return (
 		<ul css={styles.list}>
 			<div css={styles.toggleList}>

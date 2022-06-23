@@ -60,7 +60,7 @@ const Sections = ({ data, updater }) => {
 				border-radius: 0.5rem;
 				font-family: 'Inter';
 				box-shadow: 0 0.5rem 1.5rem ${v.text_dark}20;
-				background: ${v.secondary_2};
+				background: ${v.secondary_1};
 				color: ${v.text_1};
 
 				&-icon {

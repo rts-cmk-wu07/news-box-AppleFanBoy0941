@@ -10,7 +10,8 @@ import Navbar from './components/Navbar';
 import MenuContext from './context/MenuContext';
 import ActiveSectionContext from './context/ActiveSectionContext';
 import SearchContext from './context/SearchContext';
-import Joyride from 'react-joyride';
+import Tutorial from './templates/Tutorial';
+import tutorial from './content/tutorialSteps';
 
 function App() {
 	const [themeSwitch, setThemeSwitch] = useState('automatic');
@@ -47,7 +48,8 @@ function App() {
 
 	const [menu, setMenu] = useState(false);
 
-	const steps = [{ target: '#section-1', content: 'Welcome to the News App!' }];
+	const activeSectionsLS = JSON.parse(localStorage.getItem('activeSections'));
+	console.log(activeSectionsLS);
 
 	const sections = [
 		'World',
@@ -76,9 +78,14 @@ function App() {
 
 	const sectionList = sections.sort();
 
-	const [activeSections, setActiveSections] = useState(sectionList);
+	const [activeSections, setActiveSections] = useState(
+		activeSectionsLS || sectionList
+	);
 
 	const [searchQ, setSearchQ] = useState('');
+
+	const tutorialLS = localStorage.getItem('tutorial');
+	const [currentStep, setCurrentStep] = useState(tutorialLS || 0);
 
 	return (
 		<div className="App" css={styles.container}>
@@ -92,8 +99,12 @@ function App() {
 							}}
 						>
 							<SearchContext.Provider value={{ searchQ, setSearchQ }}>
-								<Joyride steps={steps} continuous="true" />
-								<Navbar />
+								<Tutorial
+									step={tutorial}
+									currentStep={currentStep}
+									setCurrentStep={setCurrentStep}
+								/>
+								<Navbar setCurrentStep={setCurrentStep} />
 								<div>
 									<Outlet />
 								</div>

@@ -61,8 +61,6 @@ const SettingsItem = ({
 	const clickHandler = () => {
 		setIsActive(!isActive);
 		if (isActive) {
-			console.log(activeSections.indexOf(section));
-			console.log(activeSections);
 			setActiveSections(activeSections.filter(title => title !== section));
 		} else {
 			const newSections = [...activeSections, section].sort();

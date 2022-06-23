@@ -8,7 +8,7 @@ import { variables } from '../variables/variables';
 import ThemeToggle from '../components/ThemeToggle';
 import SettingsList from '../components/SettingsList';
 
-const Menu = () => {
+const Menu = ({ setCurrentStep }) => {
 	const menu = useContext(MenuContext);
 	const menuIsOpen = menu.menu;
 
@@ -53,6 +53,17 @@ const Menu = () => {
 		heading: css`
 			text-align: center;
 		`,
+		button: css`
+			border: none;
+			background: ${v.secondary_2}80;
+			font-weight: 700;
+			font-size: 0.9rem;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			padding: 0.5rem 1.5rem;
+			color: ${v.text_1};
+			border-radius: 1rem;
+		`,
 	};
 	return (
 		<div css={styles.menu}>
@@ -62,6 +73,9 @@ const Menu = () => {
 			</div>
 			<SettingsList />
 			<ThemeToggle />
+			<button css={styles.button} onClick={() => setCurrentStep(0)}>
+				Replay tutorial
+			</button>
 			<small>Version: 4.8.23</small>
 		</div>
 	);
