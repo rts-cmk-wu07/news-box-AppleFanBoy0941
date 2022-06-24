@@ -49,7 +49,6 @@ function App() {
 	const [menu, setMenu] = useState(false);
 
 	const activeSectionsLS = JSON.parse(localStorage.getItem('activeSections'));
-	console.log(activeSectionsLS);
 
 	const sections = [
 		'World',

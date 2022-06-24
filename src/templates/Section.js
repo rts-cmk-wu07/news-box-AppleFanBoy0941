@@ -114,7 +114,6 @@ const Section = ({ title, data, updater, setPopUp, setPopUpIsOpen, id }) => {
 					section: article.section,
 					url: article.url,
 				};
-				console.log(newArchive);
 				let updatedArchive = [];
 				if (archive) {
 					updatedArchive = [...archive, newArchive];
