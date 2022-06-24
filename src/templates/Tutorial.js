@@ -9,7 +9,6 @@ import TutorialContent from '../components/TutorialContent';
 import tutorial from '../content/tutorialSteps';
 
 const Tutorial = ({ currentStep, setCurrentStep }) => {
-	console.log(currentStep, tutorial.length);
 	const context = useContext(ThemeContext);
 	const theme = context.theme;
 	let v;

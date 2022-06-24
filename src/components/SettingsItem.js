@@ -68,7 +68,7 @@ const SettingsItem = ({
 		}
 	};
 	return (
-		<li css={styles.item}>
+		<div css={styles.item}>
 			<Heading type="sub" text={section} />
 			<button
 				css={styles.button}
@@ -79,7 +79,7 @@ const SettingsItem = ({
 					<div css={styles.toggle}></div>
 				</div>
 			</button>
-		</li>
+		</div>
 	);
 };
 
